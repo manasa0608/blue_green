@@ -1,0 +1,27 @@
+name: example
+description: A new Flutter project.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.1.0
+  postgres: ^3.0.5
+  shelf_router:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  annotations:
+    path: ../annotations
+  generators:
+    path: ../generators
+  build_runner:
+
+flutter:
+  uses-material-design: true
