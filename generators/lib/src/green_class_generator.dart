@@ -30,6 +30,8 @@ class GreenClassGenerator extends GeneratorForAnnotation<ChangeColor> {
           modelVisitor.functions.elementAt(i),
           'green${modelVisitor.functions.elementAt(i)}');
     }
+    // final outputId = classAssetId.changeExtension('.g.dart');
+    // await buildStep.writeAsString(outputId, classContent);
 
     return '$classContent';
   }

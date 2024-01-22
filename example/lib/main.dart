@@ -1,30 +1,66 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'package:example/src/controllers/organization_controller.dart';
-import 'package:example/src/controllers/user_controller.dart';
-import 'package:example/src/service/organization_service.dart';
-import 'package:example/src/service/user_service.dart';
-import 'package:example/src/utils/organization_builder.dart';
-import 'package:shelf/shelf.dart';
-import 'package:shelf/shelf_io.dart' as io;
-import 'package:shelf_router/shelf_router.dart';
-
+import 'package:example/src/blue_implementation.dart';
+import 'package:example/src/green_implementation.dart';
+import 'package:example/src/models/system_config.dart';
+import 'package:example/src/service_router.dart';
+import 'package:example/src/utils/enums.dart';
+import 'package:riverpod/riverpod.dart';
 
 void main() async {
-  final userService = UserService();
-  final userController = UserController(userService);
+  final container = ProviderContainer();
+  final greenService = GreenServiceImpl();
+  final blueService = BlueServiceImpl();
 
-  final organizationService = OrganizationService();
-  final organizationBuilder = OrganizationBuilder();
-  final organizationController =
-      OrganizationController(organizationService, organizationBuilder);
+  final serviceRouter = ServiceRouter(
+    greenService: greenService,
+    blueService: blueService,
+  );
 
-  final app = Router();
-  app.mount('/users/', userController.router);
+  final systemConfig = getSystemConfig(container);
+  print(systemConfig.system);
 
-  app.mount('/org/', organizationController.router);
-
-  final handler = const Pipeline().addMiddleware(logRequests()).addHandler(app);
-
-  await io.serve(handler, 'localhost', 8080);
+  await serviceRouter.routeRequest(systemConfig);
 }
+
+SystemConfig getSystemConfig(ProviderContainer container) {
+  try {
+    var systemConfig = container.read(systemProvider);
+
+    if (systemConfig.system == '') {
+      return SystemConfig(system: System.Blue, isRunning: false, systemState: SystemState.free);
+    }
+
+    if (systemConfig.system == System.Blue && systemConfig.systemState == SystemState.busy) {
+      return SystemConfig(system: System.Green, isRunning: false, systemState: SystemState.free);
+    }
+
+    if (systemConfig.system == System.Blue && systemConfig.systemState == SystemState.free) {
+      return SystemConfig(system: System.Blue, isRunning: false, systemState: SystemState.free);
+    }
+
+    if (systemConfig.system == System.Green && systemConfig.systemState == SystemState.busy) {
+      return SystemConfig(system: System.Blue, isRunning: false, systemState: SystemState.free);
+    }
+
+    if (systemConfig.system == System.Green && systemConfig.systemState == SystemState.free) {
+      return SystemConfig(system: System.Green, isRunning: false, systemState: SystemState.free);
+    }
+
+    return SystemConfig(system: System.Blue, isRunning: false, systemState: SystemState.free);
+  } catch (exception) {
+    rethrow;
+  }
+}
+
+// void maintainStates(){
+//
+//   /* maintain version/seq number for sync -
+//    - if G/B selected - mark it as busy
+//    - if both are in busy states, finish one (B) and then do a sync with green and keep it in higher version,
+//    - after request mark it in sync state and then mark as free
+//    - if both are free, do a sync if seq numbers are different
+//
+//
+//    */
+// }

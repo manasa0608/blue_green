@@ -1,0 +1,21 @@
+// **************************************************************************
+// GreenClassGenerator
+// **************************************************************************
+
+import 'package:example/src/utils/database.dart';
+import 'package:annotations/annotation.dart';
+
+@Green
+class GreenUserService {
+  Future<String> greenaddUser(String username, String email) async {
+    return Database.greenaddUser(username, email);
+  }
+
+  Future<List<Map<String, dynamic>>> greengetAllUsers() async {
+    return Database.greengetAllUsers();
+  }
+
+  Future<Map<String, dynamic>> greengetUserById(int id) async {
+    return Database.getUserDetails(id);
+  }
+}
