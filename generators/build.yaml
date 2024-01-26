@@ -10,8 +10,8 @@ builders:
   generators:
     target: ":generators"
     import: "package:generators/generators.dart"
-    builder_factories: ["generateGreenClass"]
-    build_extensions: { ".dart": [".g.dart"] }
+    builder_factories: [ "generateGreenClass" ]
+    build_extensions: { ".dart": ".g.dart" }
     auto_apply: dependents
     build_to: source
-    applies_builders: ["source_gen|combining_builder"]
+    applies_builders: [ "source_gen|combining_builder" ]
