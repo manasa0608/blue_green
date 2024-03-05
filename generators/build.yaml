@@ -1,17 +1,25 @@
-targets:
-  $default:
-    builders:
-      generators|annotations:
-        enabled: true
-        generate_for:
-          - lib/*.dart
-
+#targets:
+#  $default:
+#    builders:
+#      generators|annotations:
+#        enabled: true
+#        generate_for:
+#          - lib/*.dart
+#
+#builders:
+#  generators:
+#    target: ":generators"
+#    import: "package:generators/generators.dart"
+#    builder_factories: [ "generateGreenClass" ]
+#    build_extensions: { ".dart": [".g.dart"]}
+#    auto_apply: dependents
+#    build_to: source
+#    applies_builders: [ "source_gen|combining_builder" ]
 builders:
-  generators:
-    target: ":generators"
-    import: "package:generators/generators.dart"
-    builder_factories: [ "generateGreenClass" ]
-    build_extensions: { ".dart": ".g.dart" }
+  greenGeneratorBuilder:
+    import: 'package:generators/generators.dart'
+    builder_factories: ['generateGreenClass']
     auto_apply: dependents
-    build_to: source
+    build_extensions: { ".dart": [".green.part"]}
+    build_to: cache
     applies_builders: [ "source_gen|combining_builder" ]

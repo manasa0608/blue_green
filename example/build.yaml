@@ -1,0 +1,7 @@
+targets:
+  $default:
+    builders:
+      generators|greenGeneratorBuilder:
+        enabled: True
+        generate_for:
+          - lib/src/*

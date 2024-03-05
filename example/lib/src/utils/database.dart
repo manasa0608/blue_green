@@ -3,6 +3,8 @@
 import 'package:example/src/utils/constants.dart';
 import 'package:postgres/postgres.dart';
 
+import '../models/component.dart';
+import '../models/personal_details.dart';
 import '../models/user.dart';
 
 class Database {
@@ -48,10 +50,8 @@ class Database {
   static Future<List<Map<String, dynamic>>> getAllUsers() async {
     List<User> _userList = [];
     final connection = await getConnection();
-
     try {
       final result = await connection.execute('SELECT * FROM users');
-
       for (final row in result) {
         final user = User(row[0] as int, row[1] as String, row[2] as String);
         _userList.add(user);
@@ -64,13 +64,37 @@ class Database {
     }
   }
 
+  static Future<List<Component>> getAllComponents() async {
+    final connection = await getConnection();
+    List<Component> componentList = [];
+    try {
+      final result = await connection.execute('SELECT * FROM components');
+
+      for (final row in result) {
+        final component = Component(
+            row[0] as int,
+            row[1] as int,
+            PersonalDetails(
+              row[2] as String,
+              row[3] as String,
+            ),
+            (row[4] as List<dynamic>?)?.cast<int>() ?? [],
+            (row[5] as List<dynamic>?)?.cast<int>() ?? [],
+            row[6] as double);
+        componentList.add(component);
+      }
+      return componentList;
+    } catch (e) {
+      throw Exception('Failed to fetch components');
+    } finally {
+      await connection.close();
+    }
+  }
+
   static Future<String> addUser(String username, String email) async {
     final connection = await getConnection();
     try {
-      final result = connection.execute(
-          Sql.named(
-              'Insert into users (username, email) VALUES  (@username, @email)'),
-          parameters: {'username': username, 'email': email});
+      final result = connection.execute(Sql.named('Insert into users (username, email) VALUES  (@username, @email)'), parameters: {'username': username, 'email': email});
       if (result != null) {
         return 'User added successfully';
       } else {

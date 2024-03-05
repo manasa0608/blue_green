@@ -4,7 +4,7 @@ import 'package:annotations/annotation.dart';
 
 import '../models/employees.dart';
 import '../models/personal_details.dart';
-import '../models/treenode.dart';
+import '../models/treeNode.dart';
 
 @Green
 class OrganizationBuilder {

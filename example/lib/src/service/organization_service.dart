@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:example/src/models/employees.dart';
 import 'package:example/src/utils/organization_builder.dart';
 
-import '../models/treenode.dart';
+import '../models/treeNode.dart';
 
 class OrganizationService {
   late final OrganizationBuilder _organizationBuilder;
@@ -72,8 +72,7 @@ class OrganizationService {
       }
 
       //manage exit employees manager data
-      if (node.data.isManagingPeople &&
-          managesExitEmployee(node.data.directReportees, exitEmployeeId)) {
+      if (node.data.isManagingPeople && managesExitEmployee(node.data.directReportees, exitEmployeeId)) {
         removeExitEmployeeFromDirectReports(exitEmployeeId, node);
       }
 
@@ -84,8 +83,7 @@ class OrganizationService {
     }
   }
 
-  void deleteNodeAndUpdateRelations(
-      int exitEmployeeId, TreeNode<Employee> nodeToDelete) {
+  void deleteNodeAndUpdateRelations(int exitEmployeeId, TreeNode<Employee> nodeToDelete) {
     TreeNode<Employee>? rootNode = _organizationBuilder.getRootNode();
     TreeNode<Employee>? parentNode = findParentNode(rootNode!, exitEmployeeId);
 
@@ -100,8 +98,7 @@ class OrganizationService {
     nodeToDelete.parent = null;
   }
 
-  TreeNode<Employee>? findParentNode(
-      TreeNode<Employee> node, int exitEmployeeId) {
+  TreeNode<Employee>? findParentNode(TreeNode<Employee> node, int exitEmployeeId) {
     for (TreeNode<Employee> child in node.children) {
       if (child.data.id == exitEmployeeId) {
         return node;
@@ -140,8 +137,7 @@ class OrganizationService {
     return false;
   }
 
-  void removeExitEmployeeFromDirectReports(
-      int exitEmployeeId, TreeNode<Employee> node) {
+  void removeExitEmployeeFromDirectReports(int exitEmployeeId, TreeNode<Employee> node) {
     final List<int> updatedDirectReportees = [];
     for (int id in node.data.directReportees) {
       if (id != exitEmployeeId) {
