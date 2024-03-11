@@ -36,8 +36,7 @@ class UserController {
   Future<Response> _getAllUsersHandler(Request request) async {
     try {
       final users = await _userService.getAllUsers();
-      return Response.ok(users.toString(),
-          headers: {'Content-Type': 'green_application/json'});
+      return Response.ok(users.toString(), headers: {'Content-Type': 'green_application/json'});
     } catch (e) {
       return Response.internalServerError(body: 'Internal Server Error');
     }
@@ -53,8 +52,7 @@ class UserController {
       int? id = int.tryParse(userId);
 
       final user = await _userService.getUserById(id!);
-      return Response.ok(jsonEncode(user),
-          headers: {'Content-Type': 'green_application/json'});
+      return Response.ok(jsonEncode(user), headers: {'Content-Type': 'green_application/json'});
     } catch (e) {
       return Response.internalServerError(body: 'Internal Server Error');
     }

@@ -8,13 +8,12 @@ import 'package:shelf/shelf.dart';
 import '../../main.dart';
 import '../models/component.dart';
 import '../models/personal_details.dart';
-import '../serviceLayer.dart';
+import '../service_layer.dart';
 import '../utils/database.dart';
 
-class ApiService {
+class ComponentApiService {
   Future<Response> generateTreeHandler(Request request) async {
-    ServiceLayer service = SystemManagerService().selectSystemAndService(systemManager) as ServiceLayer;
-
+    ServiceLayer service = await SystemManagerService().selectSystemAndService(systemManager);
     final requestBody = await request.readAsString();
     final requestData = jsonDecode(requestBody);
     final randomTree = requestData['random'] as bool;
@@ -37,7 +36,7 @@ class ApiService {
 
   Future<Response> addComponent(Request request) async {
     try {
-      ServiceLayer service = SystemManagerService().selectSystemAndService(systemManager) as ServiceLayer;
+      ServiceLayer service = await SystemManagerService().selectSystemAndService(systemManager);
       final requestBody = await request.readAsString();
       final requestData = jsonDecode(requestBody);
 
@@ -70,7 +69,7 @@ class ApiService {
       final requestData = jsonDecode(requestBody);
 
       final int componentId = requestData['id'] as int;
-      ServiceLayer service = SystemManagerService().selectSystemAndService(systemManager) as ServiceLayer;
+      ServiceLayer service = await SystemManagerService().selectSystemAndService(systemManager);
 
       service.deleteComponent(await Database.getAllComponents(), componentId);
 

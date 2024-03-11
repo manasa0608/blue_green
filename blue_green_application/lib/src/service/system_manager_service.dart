@@ -1,7 +1,7 @@
-import 'package:example/src/serviceLayer.dart';
+import 'package:example/src/service_layer.dart';
 
-import '../../blue_system/services/component_service_blue.dart';
-import '../../green_system/services/component_service_green.dart';
+import 'component_service_blue.dart';
+import 'component_service_green.dart';
 import '../models/system_manager.dart';
 import '../utils/enums.dart';
 

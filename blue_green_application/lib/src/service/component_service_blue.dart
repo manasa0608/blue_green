@@ -2,11 +2,11 @@ import 'dart:math';
 
 import 'package:example/src/models/component.dart';
 import 'package:example/src/models/treeNode.dart';
-import 'package:example/src/serviceLayer.dart';
+import 'package:example/src/service_layer.dart';
 
-import '../../src/models/personal_details.dart';
+import '../models/personal_details.dart';
 
-class ComponentServiceGreen implements ServiceLayer {
+class ComponentServiceBlue implements ServiceLayer {
   Random random = Random();
 
   late List<Component> sortedNodes = [];
@@ -98,7 +98,6 @@ class ComponentServiceGreen implements ServiceLayer {
     printComponents(filteredComponents);
   }
 
-  @override
   void printComponents(List<Component> components) {
     for (Component component in components) {
       print("${component.personalDetails.name}-${component.amountAccountable}-${component.listOfHigherComponentsId}--${component.listOfLowerComponentsId}");
@@ -114,7 +113,7 @@ class ComponentServiceGreen implements ServiceLayer {
       * for each lower level add sub levels until numberOfLevels becomes 0
       * */
 
-    print("hello green system");
+    print("hello blue system");
 
     List<Component> generatedData = [];
     double amount = generateRandomAmountValue();
@@ -131,8 +130,10 @@ class ComponentServiceGreen implements ServiceLayer {
     } else {
       generatedData = createDataAtLevels(numberOfData, numberOfLevels);
     }
-    Future.delayed(Duration(minutes: 2));
-    print("completed in green system");
+    for (var component in generatedData) {
+      print(component.toJson());
+    }
+    print("completed in blue system");
     return generatedData;
   }
 
