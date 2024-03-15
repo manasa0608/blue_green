@@ -1,7 +1,5 @@
 import 'package:example/src/utils/database.dart';
-import 'package:annotations/annotation.dart';
 
-@Green
 class UserService {
   Future<String> addUser(String username, String email) async {
     return Database.addUser(username, email);

@@ -1,16 +1,12 @@
-import 'dart:math';
+// GENERATED CODE - DO NOT MODIFY BY HAND
 
-import 'package:annotations/annotation.dart';
-import 'package:example/src/models/component.dart';
-import 'package:example/src/models/treeNode.dart';
-import 'package:example/src/service_layer.dart';
+part of 'component_service_blue.dart';
 
-import '../models/personal_details.dart';
+// **************************************************************************
+// GreenGenerator
+// **************************************************************************
 
-part 'component_service_blue.g.dart';
-
-@Green
-class ComponentServiceBlue implements ServiceLayer {
+class ComponentServiceBlueGreen implements ServiceLayer {
   Random random = Random();
 
   late List<Component> sortedNodes = [];
@@ -117,7 +113,7 @@ class ComponentServiceBlue implements ServiceLayer {
       * for each lower level add sub levels until numberOfLevels becomes 0
       * */
 
-    print("hello blue system");
+    print("hello green system");
 
     List<Component> generatedData = [];
     double amount = generateRandomAmountValue();
@@ -137,7 +133,7 @@ class ComponentServiceBlue implements ServiceLayer {
     for (var component in generatedData) {
       print(component.toJson());
     }
-    print("completed in blue system");
+    print("completed in green-new system");
     return generatedData;
   }
 

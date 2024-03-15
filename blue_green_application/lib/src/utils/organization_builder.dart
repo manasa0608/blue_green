@@ -1,57 +1,38 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'package:annotations/annotation.dart';
-
 import '../models/employees.dart';
 import '../models/personal_details.dart';
 import '../models/treeNode.dart';
 
-@Green
 class OrganizationBuilder {
   TreeNode<Employee>? ceoNode;
 
   void buildOrganizationTree() {
-    PersonalDetails personalDetailsOfCeo =
-        PersonalDetails('Alice Johnson', 'alice.johnson@example.com');
-    Employee employeeCeo =
-        Employee([1, 2, 3, 4], 1, true, "CEO", 8, [2], 1, personalDetailsOfCeo);
+    PersonalDetails personalDetailsOfCeo = PersonalDetails('Alice Johnson', 'alice.johnson@example.com');
+    Employee employeeCeo = Employee([1, 2, 3, 4], 1, true, "CEO", 8, [2], 1, personalDetailsOfCeo);
 
-    PersonalDetails personalDetailsOfCto =
-        PersonalDetails('Bob Smith', 'bob.smith@example.com');
-    Employee employeeCto = Employee(
-        [1, 2, 3, 4], 2, true, "CTO", 7, [3, 4], 1, personalDetailsOfCto);
+    PersonalDetails personalDetailsOfCto = PersonalDetails('Bob Smith', 'bob.smith@example.com');
+    Employee employeeCto = Employee([1, 2, 3, 4], 2, true, "CTO", 7, [3, 4], 1, personalDetailsOfCto);
 
 //directors
-    PersonalDetails personalDetailsOfDirector1 =
-        PersonalDetails('Catherine Brown', 'catherine.brown@example.com');
-    Employee employeeDirector1 = Employee(
-        [1, 2], 3, true, "DIRECTOR", 6, [5, 6], 2, personalDetailsOfDirector1);
+    PersonalDetails personalDetailsOfDirector1 = PersonalDetails('Catherine Brown', 'catherine.brown@example.com');
+    Employee employeeDirector1 = Employee([1, 2], 3, true, "DIRECTOR", 6, [5, 6], 2, personalDetailsOfDirector1);
 
-    PersonalDetails personalDetailsOfDirector2 =
-        PersonalDetails('David Miller', 'david.miller@example.com');
-    Employee employeeDirector2 = Employee(
-        [3, 4], 4, true, "DIRECTOR", 6, [7, 8], 2, personalDetailsOfDirector2);
+    PersonalDetails personalDetailsOfDirector2 = PersonalDetails('David Miller', 'david.miller@example.com');
+    Employee employeeDirector2 = Employee([3, 4], 4, true, "DIRECTOR", 6, [7, 8], 2, personalDetailsOfDirector2);
 
 //managers
-    PersonalDetails personalDetailsOfManager1 =
-        PersonalDetails('Emily Davis', 'emily.davis@example.com');
-    Employee employeeManager1 = Employee([1], 5, true, "MANAGER", 5,
-        [9, 10, 17, 18, 19, 20, 21], 3, personalDetailsOfManager1);
+    PersonalDetails personalDetailsOfManager1 = PersonalDetails('Emily Davis', 'emily.davis@example.com');
+    Employee employeeManager1 = Employee([1], 5, true, "MANAGER", 5, [9, 10, 17, 18, 19, 20, 21], 3, personalDetailsOfManager1);
 
-    PersonalDetails personalDetailsOfManager2 =
-        PersonalDetails('Frank Wilson', 'frank.wilson@example.com');
-    Employee employeeManager2 = Employee([2], 6, true, "MANAGER", 5,
-        [11, 12, 22, 23, 24, 25, 26], 3, personalDetailsOfManager2);
+    PersonalDetails personalDetailsOfManager2 = PersonalDetails('Frank Wilson', 'frank.wilson@example.com');
+    Employee employeeManager2 = Employee([2], 6, true, "MANAGER", 5, [11, 12, 22, 23, 24, 25, 26], 3, personalDetailsOfManager2);
 
-    PersonalDetails personalDetailsOfManager3 =
-        PersonalDetails('Grace Moore', 'grace.moore@example.com');
-    Employee employeeManager3 = Employee([3], 7, true, "MANAGER", 5,
-        [13, 14, 27, 28, 29, 30, 31], 4, personalDetailsOfManager3);
+    PersonalDetails personalDetailsOfManager3 = PersonalDetails('Grace Moore', 'grace.moore@example.com');
+    Employee employeeManager3 = Employee([3], 7, true, "MANAGER", 5, [13, 14, 27, 28, 29, 30, 31], 4, personalDetailsOfManager3);
 
-    PersonalDetails personalDetailsOfManager4 =
-        PersonalDetails('Henry Lee', 'henry.lee@example.com');
-    Employee employeeManager4 = Employee([4], 8, true, "MANAGER", 5,
-        [15, 16, 32, 33, 34, 35, 36], 4, personalDetailsOfManager4);
+    PersonalDetails personalDetailsOfManager4 = PersonalDetails('Henry Lee', 'henry.lee@example.com');
+    Employee employeeManager4 = Employee([4], 8, true, "MANAGER", 5, [15, 16, 32, 33, 34, 35, 36], 4, personalDetailsOfManager4);
 
 //senior engineers
     List<PersonalDetails> personalDetailsOfSeniorEngineers = [
@@ -66,22 +47,14 @@ class OrganizationBuilder {
     ];
 
     List<Employee> seniorEngineers = [
-      Employee([1], 9, false, "SENIOR_ENGINEER", 4, [], 5,
-          personalDetailsOfSeniorEngineers[0]),
-      Employee([1], 10, false, "SENIOR_ENGINEER", 4, [], 5,
-          personalDetailsOfSeniorEngineers[1]),
-      Employee([2], 11, false, "SENIOR_ENGINEER", 4, [], 6,
-          personalDetailsOfSeniorEngineers[2]),
-      Employee([2], 12, false, "SENIOR_ENGINEER", 4, [], 6,
-          personalDetailsOfSeniorEngineers[3]),
-      Employee([3], 13, false, "SENIOR_ENGINEER", 4, [], 7,
-          personalDetailsOfSeniorEngineers[4]),
-      Employee([3], 14, false, "SENIOR_ENGINEER", 4, [], 7,
-          personalDetailsOfSeniorEngineers[5]),
-      Employee([4], 15, false, "SENIOR_ENGINEER", 4, [], 8,
-          personalDetailsOfSeniorEngineers[6]),
-      Employee([4], 16, false, "SENIOR_ENGINEER", 4, [], 8,
-          personalDetailsOfSeniorEngineers[7]),
+      Employee([1], 9, false, "SENIOR_ENGINEER", 4, [], 5, personalDetailsOfSeniorEngineers[0]),
+      Employee([1], 10, false, "SENIOR_ENGINEER", 4, [], 5, personalDetailsOfSeniorEngineers[1]),
+      Employee([2], 11, false, "SENIOR_ENGINEER", 4, [], 6, personalDetailsOfSeniorEngineers[2]),
+      Employee([2], 12, false, "SENIOR_ENGINEER", 4, [], 6, personalDetailsOfSeniorEngineers[3]),
+      Employee([3], 13, false, "SENIOR_ENGINEER", 4, [], 7, personalDetailsOfSeniorEngineers[4]),
+      Employee([3], 14, false, "SENIOR_ENGINEER", 4, [], 7, personalDetailsOfSeniorEngineers[5]),
+      Employee([4], 15, false, "SENIOR_ENGINEER", 4, [], 8, personalDetailsOfSeniorEngineers[6]),
+      Employee([4], 16, false, "SENIOR_ENGINEER", 4, [], 8, personalDetailsOfSeniorEngineers[7]),
     ];
 
     List<PersonalDetails> personalDetailsOfEngineers = [
@@ -108,46 +81,26 @@ class OrganizationBuilder {
     ];
 
     List<Employee> engineers = [
-      Employee(
-          [1], 17, false, "ENGINEER", 3, [], 5, personalDetailsOfEngineers[0]),
-      Employee(
-          [1], 18, false, "ENGINEER", 3, [], 5, personalDetailsOfEngineers[1]),
-      Employee(
-          [1], 19, false, "ENGINEER", 3, [], 5, personalDetailsOfEngineers[2]),
-      Employee(
-          [1], 20, false, "ENGINEER", 3, [], 5, personalDetailsOfEngineers[3]),
-      Employee(
-          [1], 21, false, "ENGINEER", 3, [], 5, personalDetailsOfEngineers[4]),
-      Employee(
-          [2], 22, false, "ENGINEER", 3, [], 6, personalDetailsOfEngineers[5]),
-      Employee(
-          [2], 23, false, "ENGINEER", 3, [], 6, personalDetailsOfEngineers[6]),
-      Employee(
-          [2], 24, false, "ENGINEER", 3, [], 6, personalDetailsOfEngineers[7]),
-      Employee(
-          [2], 25, false, "ENGINEER", 3, [], 6, personalDetailsOfEngineers[8]),
-      Employee(
-          [2], 26, false, "ENGINEER", 3, [], 6, personalDetailsOfEngineers[9]),
-      Employee(
-          [3], 27, false, "ENGINEER", 3, [], 7, personalDetailsOfEngineers[10]),
-      Employee(
-          [3], 28, false, "ENGINEER", 3, [], 7, personalDetailsOfEngineers[11]),
-      Employee(
-          [3], 29, false, "ENGINEER", 3, [], 7, personalDetailsOfEngineers[12]),
-      Employee(
-          [3], 30, false, "ENGINEER", 3, [], 7, personalDetailsOfEngineers[13]),
-      Employee(
-          [3], 31, false, "ENGINEER", 3, [], 7, personalDetailsOfEngineers[14]),
-      Employee(
-          [4], 32, false, "ENGINEER", 3, [], 8, personalDetailsOfEngineers[15]),
-      Employee(
-          [4], 33, false, "ENGINEER", 3, [], 8, personalDetailsOfEngineers[16]),
-      Employee(
-          [4], 34, false, "ENGINEER", 3, [], 8, personalDetailsOfEngineers[17]),
-      Employee(
-          [4], 35, false, "ENGINEER", 3, [], 8, personalDetailsOfEngineers[18]),
-      Employee(
-          [4], 36, false, "ENGINEER", 3, [], 8, personalDetailsOfEngineers[19])
+      Employee([1], 17, false, "ENGINEER", 3, [], 5, personalDetailsOfEngineers[0]),
+      Employee([1], 18, false, "ENGINEER", 3, [], 5, personalDetailsOfEngineers[1]),
+      Employee([1], 19, false, "ENGINEER", 3, [], 5, personalDetailsOfEngineers[2]),
+      Employee([1], 20, false, "ENGINEER", 3, [], 5, personalDetailsOfEngineers[3]),
+      Employee([1], 21, false, "ENGINEER", 3, [], 5, personalDetailsOfEngineers[4]),
+      Employee([2], 22, false, "ENGINEER", 3, [], 6, personalDetailsOfEngineers[5]),
+      Employee([2], 23, false, "ENGINEER", 3, [], 6, personalDetailsOfEngineers[6]),
+      Employee([2], 24, false, "ENGINEER", 3, [], 6, personalDetailsOfEngineers[7]),
+      Employee([2], 25, false, "ENGINEER", 3, [], 6, personalDetailsOfEngineers[8]),
+      Employee([2], 26, false, "ENGINEER", 3, [], 6, personalDetailsOfEngineers[9]),
+      Employee([3], 27, false, "ENGINEER", 3, [], 7, personalDetailsOfEngineers[10]),
+      Employee([3], 28, false, "ENGINEER", 3, [], 7, personalDetailsOfEngineers[11]),
+      Employee([3], 29, false, "ENGINEER", 3, [], 7, personalDetailsOfEngineers[12]),
+      Employee([3], 30, false, "ENGINEER", 3, [], 7, personalDetailsOfEngineers[13]),
+      Employee([3], 31, false, "ENGINEER", 3, [], 7, personalDetailsOfEngineers[14]),
+      Employee([4], 32, false, "ENGINEER", 3, [], 8, personalDetailsOfEngineers[15]),
+      Employee([4], 33, false, "ENGINEER", 3, [], 8, personalDetailsOfEngineers[16]),
+      Employee([4], 34, false, "ENGINEER", 3, [], 8, personalDetailsOfEngineers[17]),
+      Employee([4], 35, false, "ENGINEER", 3, [], 8, personalDetailsOfEngineers[18]),
+      Employee([4], 36, false, "ENGINEER", 3, [], 8, personalDetailsOfEngineers[19])
     ];
 
     // Team team1 = Team(1, 11, [
@@ -217,8 +170,7 @@ class OrganizationBuilder {
     TreeNode<Employee> managerNode3 = TreeNode<Employee>(employeeManager3);
     TreeNode<Employee> managerNode4 = TreeNode<Employee>(employeeManager4);
 
-    List<TreeNode<Employee>> seniorEngineerNodes =
-        seniorEngineers.map((seniorEngineer) {
+    List<TreeNode<Employee>> seniorEngineerNodes = seniorEngineers.map((seniorEngineer) {
       return TreeNode<Employee>(seniorEngineer);
     }).toList();
 

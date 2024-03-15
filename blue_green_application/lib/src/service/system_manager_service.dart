@@ -5,7 +5,7 @@ import 'component_service_green.dart';
 import '../models/system_manager.dart';
 import '../utils/enums.dart';
 
-class SystemManagerService{
+class SystemManagerService {
   Future<ServiceLayer> selectSystemAndService(SystemManager systemManager) async {
     while (true) {
       if (systemManager.getSystemState(System.Green) != SystemState.Busy) {
@@ -13,7 +13,7 @@ class SystemManagerService{
         systemManager.setSystemState(System.Blue, SystemState.Free);
         await Future.delayed(Duration(minutes: 1));
         systemManager.setSystemState(System.Green, SystemState.Free);
-        return ComponentServiceGreen();
+        return ComponentServiceBlueGreen();
       } else if (systemManager.getSystemState(System.Blue) != SystemState.Busy) {
         systemManager.setSystemState(System.Blue, SystemState.Busy);
         systemManager.setSystemState(System.Green, SystemState.Free);
@@ -24,5 +24,4 @@ class SystemManagerService{
       await Future.delayed(Duration(seconds: 1));
     }
   }
-
 }
