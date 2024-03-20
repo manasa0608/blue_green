@@ -102,6 +102,7 @@ class ComponentServiceBlueGreen implements ServiceLayer {
     quickSort(filteredComponents, 0, filteredComponents.length - 1);
   }
 
+  @override
   void printComponents(List<Component> components) {
     for (Component component in components) {
       print(
@@ -118,8 +119,6 @@ class ComponentServiceBlueGreen implements ServiceLayer {
       * create lower levels and divide the amount among them, numberOfLevels--
       * for each lower level add sub levels until numberOfLevels becomes 0
       * */
-
-    print("hello blue system");
 
     List<Component> generatedData = [];
     double amount = generateRandomAmountValue();
@@ -139,10 +138,6 @@ class ComponentServiceBlueGreen implements ServiceLayer {
     } else {
       generatedData = createDataAtLevels(numberOfData, numberOfLevels);
     }
-    for (var component in generatedData) {
-      print(component.toJson());
-    }
-    print("completed in blue system");
     return generatedData;
   }
 
@@ -265,7 +260,7 @@ class ComponentServiceBlueGreen implements ServiceLayer {
   2. Get the upperids, both in the list format
   3. Get the amount accountable, add the value to its higher components.
 
-  4. Check the lower and hhigher id components exists, if true attach this id to them
+  4. Check the lower and higher id components exists, if true attach this id to them
 
    */
   @override
@@ -299,8 +294,6 @@ class ComponentServiceBlueGreen implements ServiceLayer {
         higherComponent.listOfLowerComponentsId.add(componentToBeAdded.id);
       }
     }
-
-    // Add the component to the components list
     components.add(componentToBeAdded);
 
     return components;
@@ -356,8 +349,6 @@ class ComponentServiceBlueGreen implements ServiceLayer {
           lowerComponent.listOfHigherComponentsId.addAll(higherComponentIds);
         }
       }
-
-      // Remove the component from the list of components
       components.remove(componentToDelete);
     }
   }
