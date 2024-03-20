@@ -57,11 +57,16 @@ class ComponentServiceBlueGreen implements ServiceLayer {
 
   @override
   void quickSort(List<Component> components, int low, int high) {
-    if (low < high) {
-      int pi = partition(components, low, high);
-
-      quickSort(components, low, pi - 1);
-      quickSort(components, pi + 1, high);
+    int n = components.length;
+    for (int i = 0; i < n - 1; i++) {
+      for (int j = 0; j < n - i - 1; j++) {
+        if (components[j].amountAccountable >
+            components[j + 1].amountAccountable) {
+          Component temp = components[j];
+          components[j] = components[j + 1];
+          components[j + 1] = temp;
+        }
+      }
     }
   }
 
@@ -95,17 +100,18 @@ class ComponentServiceBlueGreen implements ServiceLayer {
     }
 
     quickSort(filteredComponents, 0, filteredComponents.length - 1);
-    printComponents(filteredComponents);
   }
 
   void printComponents(List<Component> components) {
     for (Component component in components) {
-      print("${component.personalDetails.name}-${component.amountAccountable}-${component.listOfHigherComponentsId}--${component.listOfLowerComponentsId}");
+      print(
+          "${component.personalDetails.name}-${component.amountAccountable}-${component.listOfHigherComponentsId}--${component.listOfLowerComponentsId}");
     }
   }
 
   @override
-  List<Component> createRandomDataForComponents(int numberOfData, int numberOfLevels) {
+  List<Component> createRandomDataForComponents(
+      int numberOfData, int numberOfLevels) {
     /*
       * divide the number of data into different levels, do 1:2:3:4 ratio format
       * start from the higher level and create one data and choose the amount between 100-20000. higher level = numberOfLevels
@@ -113,12 +119,14 @@ class ComponentServiceBlueGreen implements ServiceLayer {
       * for each lower level add sub levels until numberOfLevels becomes 0
       * */
 
-    print("hello green system");
+    print("hello blue system");
 
     List<Component> generatedData = [];
     double amount = generateRandomAmountValue();
-    PersonalDetails personalDetailsValue = PersonalDetails("name$numberOfData", "email$numberOfData");
-    Component higherComponent = Component(numberOfData, numberOfLevels, personalDetailsValue, [], [], amount);
+    PersonalDetails personalDetailsValue =
+        PersonalDetails("name$numberOfData", "email$numberOfData");
+    Component higherComponent = Component(
+        numberOfData, numberOfLevels, personalDetailsValue, [], [], amount);
 
     // checks
     if (numberOfData == numberOfLevels) {
@@ -126,14 +134,15 @@ class ComponentServiceBlueGreen implements ServiceLayer {
     } else if (numberOfData == numberOfLevels && numberOfData == 1) {
       generatedData.add(higherComponent);
     } else if (numberOfData < numberOfLevels) {
-      throw Exception("Incorrect data format- Please ensure data count is greater then number of levels");
+      throw Exception(
+          "Incorrect data format- Please ensure data count is greater then number of levels");
     } else {
       generatedData = createDataAtLevels(numberOfData, numberOfLevels);
     }
     for (var component in generatedData) {
       print(component.toJson());
     }
-    print("completed in green-new system");
+    print("completed in blue system");
     return generatedData;
   }
 
@@ -157,7 +166,8 @@ class ComponentServiceBlueGreen implements ServiceLayer {
         listOfLowerComponentsId.add(level - 1);
       }
 
-      Component component = Component(i, level, personalDetails, listOfHigherComponentsId, listOfLowerComponentsId, amount);
+      Component component = Component(i, level, personalDetails,
+          listOfHigherComponentsId, listOfLowerComponentsId, amount);
       components.add(component);
       level++;
     }
@@ -175,7 +185,8 @@ class ComponentServiceBlueGreen implements ServiceLayer {
     }
 
     for (int level = 1; level <= numberOfLevels; level++) {
-      int componentsForThisLevel = (numberOfData * level / totalComponents).round();
+      int componentsForThisLevel =
+          (numberOfData * level / totalComponents).round();
 
       if (componentsForThisLevel == 0) {
         componentsForThisLevel = 1;
@@ -186,8 +197,10 @@ class ComponentServiceBlueGreen implements ServiceLayer {
       }
 
       for (int i = 0; i < componentsForThisLevel; i++) {
-        PersonalDetails personalDetails = PersonalDetails("Name$currentId", "email$currentId");
-        Component component = Component(currentId, numberOfLevels - level + 1, personalDetails, [], [], amount);
+        PersonalDetails personalDetails =
+            PersonalDetails("Name$currentId", "email$currentId");
+        Component component = Component(currentId, numberOfLevels - level + 1,
+            personalDetails, [], [], amount);
         components.add(component);
 
         currentId++;
@@ -200,7 +213,8 @@ class ComponentServiceBlueGreen implements ServiceLayer {
 
   void createLevelCombinations(List<Component> components) {
     // Get all unique levels
-    Set<int> uniqueLevels = components.map((component) => component.level).toSet();
+    Set<int> uniqueLevels =
+        components.map((component) => component.level).toSet();
     components.sort((a, b) => a.level.compareTo(b.level));
     Map<int, List<Component>> levelCombinations = {};
 
@@ -217,7 +231,8 @@ class ComponentServiceBlueGreen implements ServiceLayer {
     for (var level = 1; level < levelCombinations.length; level++) {
       var lowerLevelComponents = levelCombinations[level]!;
       var higherLevelComponents = levelCombinations[level + 1]!;
-      var lowerComponentsPerHigherComponent = lowerLevelComponents.length ~/ higherLevelComponents.length;
+      var lowerComponentsPerHigherComponent =
+          lowerLevelComponents.length ~/ higherLevelComponents.length;
       for (var higherObjectComponent in higherLevelComponents) {
         higherObjectComponent.amountAccountable = 0;
       }
@@ -225,11 +240,17 @@ class ComponentServiceBlueGreen implements ServiceLayer {
       for (var i = 0; i < higherLevelComponents.length; i++) {
         var startIds = i * lowerComponentsPerHigherComponent;
         var endIds = (i + 1) * lowerComponentsPerHigherComponent;
-        for (var j = startIds; j < endIds && j < lowerLevelComponents.length; j++) {
+        for (var j = startIds;
+            j < endIds && j < lowerLevelComponents.length;
+            j++) {
           var lowerLevelComponent = lowerLevelComponents[j];
-          higherLevelComponents[i].amountAccountable += lowerLevelComponent.amountAccountable;
-          higherLevelComponents[i].listOfLowerComponentsId.add(lowerLevelComponent.id);
-          lowerLevelComponent.listOfHigherComponentsId.add(higherLevelComponents[i].id);
+          higherLevelComponents[i].amountAccountable +=
+              lowerLevelComponent.amountAccountable;
+          higherLevelComponents[i]
+              .listOfLowerComponentsId
+              .add(lowerLevelComponent.id);
+          lowerLevelComponent.listOfHigherComponentsId
+              .add(higherLevelComponents[i].id);
         }
       }
     }
@@ -248,7 +269,8 @@ class ComponentServiceBlueGreen implements ServiceLayer {
 
    */
   @override
-  List<Component> addComponent(List<Component> components, Component componentToBeAdded) {
+  List<Component> addComponent(
+      List<Component> components, Component componentToBeAdded) {
     // Get the lower level IDs of the component to be added
     List<int> lowerIds = componentToBeAdded.listOfLowerComponentsId;
 
@@ -263,14 +285,16 @@ class ComponentServiceBlueGreen implements ServiceLayer {
 
     // Attach the component to its lower and higher level components
     for (var lowerId in lowerIds) {
-      var lowerComponent = components.firstWhere((component) => component.id == lowerId);
+      var lowerComponent =
+          components.firstWhere((component) => component.id == lowerId);
       if (lowerComponent != null) {
         lowerComponent.listOfHigherComponentsId.add(componentToBeAdded.id);
       }
     }
 
     for (var higherId in higherIds) {
-      var higherComponent = components.firstWhere((component) => component.id == higherId);
+      var higherComponent =
+          components.firstWhere((component) => component.id == higherId);
       if (higherComponent != null) {
         higherComponent.listOfLowerComponentsId.add(componentToBeAdded.id);
       }
@@ -282,12 +306,15 @@ class ComponentServiceBlueGreen implements ServiceLayer {
     return components;
   }
 
-  void recursivelyAddAmount(List<Component> components, List<int> higherIds, double amountToAdd) {
+  void recursivelyAddAmount(
+      List<Component> components, List<int> higherIds, double amountToAdd) {
     for (var higherId in higherIds) {
-      var higherComponent = components.firstWhere((component) => component.id == higherId);
+      var higherComponent =
+          components.firstWhere((component) => component.id == higherId);
       if (higherComponent != null) {
         higherComponent.amountAccountable += amountToAdd;
-        recursivelyAddAmount(components, higherComponent.listOfHigherComponentsId, amountToAdd);
+        recursivelyAddAmount(
+            components, higherComponent.listOfHigherComponentsId, amountToAdd);
       }
     }
   }
@@ -302,7 +329,8 @@ class ComponentServiceBlueGreen implements ServiceLayer {
   @override
   void deleteComponent(List<Component> components, int componentId) {
     // Find the component to be deleted
-    var componentToDelete = components.firstWhere((component) => component.id == componentId);
+    var componentToDelete =
+        components.firstWhere((component) => component.id == componentId);
 
     if (componentToDelete != null) {
       // Get the IDs of lower and higher components
@@ -311,7 +339,8 @@ class ComponentServiceBlueGreen implements ServiceLayer {
 
       // Remove the component's ID from the list of lower components of higher components
       for (var higherId in higherComponentIds) {
-        var higherComponent = components.firstWhere((component) => component.id == higherId);
+        var higherComponent =
+            components.firstWhere((component) => component.id == higherId);
         if (higherComponent != null) {
           higherComponent.listOfLowerComponentsId.remove(componentId);
         }
@@ -319,7 +348,8 @@ class ComponentServiceBlueGreen implements ServiceLayer {
 
       // Remove the higher component's ID from the list of higher components of lower components
       for (var lowerId in lowerComponentIds) {
-        var lowerComponent = components.firstWhere((component) => component.id == lowerId);
+        var lowerComponent =
+            components.firstWhere((component) => component.id == lowerId);
         if (lowerComponent != null) {
           lowerComponent.listOfHigherComponentsId.remove(componentId);
           // Assign the higher ID of the deleted component to lower components

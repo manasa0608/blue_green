@@ -55,6 +55,7 @@ class ComponentApiService {
       final Component newComponent = Component(componentId, level, personalDetails, higherComponents!, lowerComponents!, amountAccountable);
 
       final List<Component> updatedComponents = service.addComponent(await Database.getAllComponents(), newComponent);
+      Database.addComponent(newComponent);
       service.printComponents(updatedComponents);
 
       return Response.ok(jsonEncode({'success': true, 'message': 'Component added successfully', 'components': updatedComponents}));
@@ -72,10 +73,25 @@ class ComponentApiService {
       ServiceLayer service = await SystemManagerService().selectSystemAndService(systemManager);
 
       service.deleteComponent(await Database.getAllComponents(), componentId);
+      await Database.deleteComponent(componentId);
 
       return Response.ok(jsonEncode({'success': true, 'message': 'Component deleted successfully'}));
     } catch (e) {
       return Response.internalServerError(body: jsonEncode({'success': false, 'message': 'Failed to delete component: $e'}));
+    }
+  }
+
+  Future<Response> sortComponents(Request request) async {
+    try {
+      ServiceLayer service = await SystemManagerService().selectSystemAndService(systemManager);
+
+      List<Component> components = await Database.getAllComponents();
+
+      service.quickSort(components, 0, components.length - 1);
+
+      return Response.ok(jsonEncode({'success': true, 'message': 'Components sorted successfully', 'sortedComponents': components}));
+    } catch (e) {
+      return Response.internalServerError(body: jsonEncode({'success': false, 'message': 'Failed to sort components: $e'}));
     }
   }
 }

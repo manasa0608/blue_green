@@ -61,11 +61,15 @@ class ComponentServiceBlue implements ServiceLayer {
 
   @override
   void quickSort(List<Component> components, int low, int high) {
-    if (low < high) {
-      int pi = partition(components, low, high);
-
-      quickSort(components, low, pi - 1);
-      quickSort(components, pi + 1, high);
+    int n = components.length;
+    for (int i = 0; i < n - 1; i++) {
+      for (int j = 0; j < n - i - 1; j++) {
+        if (components[j].amountAccountable > components[j + 1].amountAccountable) {
+          Component temp = components[j];
+          components[j] = components[j + 1];
+          components[j + 1] = temp;
+        }
+      }
     }
   }
 
@@ -99,7 +103,6 @@ class ComponentServiceBlue implements ServiceLayer {
     }
 
     quickSort(filteredComponents, 0, filteredComponents.length - 1);
-    printComponents(filteredComponents);
   }
 
   void printComponents(List<Component> components) {

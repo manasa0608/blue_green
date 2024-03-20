@@ -11,6 +11,7 @@ class ComponentController {
       '/generate-tree': {'POST': componentApiService.generateTreeHandler},
       '/add-component': {'POST': componentApiService.addComponent},
       '/delete-item': {'DELETE': componentApiService.deleteComponent},
+      '/sort-components': {'GET': componentApiService.sortComponents},
     };
 
     urlMappings.forEach((url, methods) {
