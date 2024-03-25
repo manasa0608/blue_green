@@ -1,4 +1,5 @@
-import 'package:example/src/models/personal_details.dart';
+
+import 'package:blue_green_application/src/models/personal_details.dart';
 
 class Component {
   int id;

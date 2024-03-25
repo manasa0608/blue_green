@@ -1,9 +1,10 @@
 import 'dart:collection';
 
-import 'package:example/src/models/employees.dart';
-import 'package:example/src/utils/organization_builder.dart';
 
-import '../models/treeNode.dart';
+
+import '../models/tree_node.dart';
+import 'employees.dart';
+import 'organization_builder.dart';
 
 class OrganizationService {
   late final OrganizationBuilder _organizationBuilder;

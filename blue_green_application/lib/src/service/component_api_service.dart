@@ -2,14 +2,15 @@
 
 import 'dart:convert';
 
-import 'package:example/src/service/system_manager_service.dart';
+import 'package:blue_green_application/src/database/components_database.dart';
+import 'package:blue_green_application/src/service/system_manager_service.dart';
 import 'package:shelf/shelf.dart';
 
 import '../../main.dart';
 import '../models/component.dart';
 import '../models/personal_details.dart';
-import '../service_layer.dart';
-import '../utils/database.dart';
+import '../repository/service_layer.dart';
+import '../database/database.dart';
 
 class ComponentApiService {
   Future<Response> generateTreeHandler(Request request) async {
@@ -23,7 +24,7 @@ class ComponentApiService {
     if (randomTree) {
       generatedData = service.createRandomDataForComponents(numberOfData, numberOfLevels);
     } else {
-      generatedData = await Database.getAllComponents();
+      generatedData = await ComponentDatabase.getAllComponents();
     }
     final root = service.buildTree(generatedData);
 
@@ -54,8 +55,8 @@ class ComponentApiService {
       final PersonalDetails personalDetails = PersonalDetails(name, email);
       final Component newComponent = Component(componentId, level, personalDetails, higherComponents!, lowerComponents!, amountAccountable);
 
-      final List<Component> updatedComponents = service.addComponent(await Database.getAllComponents(), newComponent);
-      Database.addComponent(newComponent);
+      final List<Component> updatedComponents = service.addComponent(await ComponentDatabase.getAllComponents(), newComponent);
+      ComponentDatabase.addComponent(newComponent);
       service.printComponents(updatedComponents);
 
       return Response.ok(jsonEncode({'success': true, 'message': 'Component added successfully', 'components': updatedComponents}));
@@ -72,8 +73,8 @@ class ComponentApiService {
       final int componentId = requestData['id'] as int;
       ServiceLayer service = await SystemManagerService().selectSystemAndService(systemManager);
 
-      service.deleteComponent(await Database.getAllComponents(), componentId);
-      await Database.deleteComponent(componentId);
+      service.deleteComponent(await ComponentDatabase.getAllComponents(), componentId);
+      await ComponentDatabase.deleteComponent(componentId);
 
       return Response.ok(jsonEncode({'success': true, 'message': 'Component deleted successfully'}));
     } catch (e) {
@@ -85,7 +86,7 @@ class ComponentApiService {
     try {
       ServiceLayer service = await SystemManagerService().selectSystemAndService(systemManager);
 
-      List<Component> components = await Database.getAllComponents();
+      List<Component> components = await ComponentDatabase.getAllComponents();
 
       service.quickSort(components, 0, components.length - 1);
 

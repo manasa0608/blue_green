@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-import '../service/user.dart';
+import 'user_service.dart';
 
 class UserController {
   final Router _router = Router();

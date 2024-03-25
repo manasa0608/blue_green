@@ -1,5 +1,5 @@
-import 'models/component.dart';
-import 'models/treeNode.dart';
+import '../models/component.dart';
+import '../models/tree_node.dart';
 
 abstract class ServiceLayer {
   TreeNode<Component>? buildTree(List<Component> components);

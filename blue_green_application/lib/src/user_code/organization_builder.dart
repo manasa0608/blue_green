@@ -1,8 +1,8 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import '../models/employees.dart';
+import 'employees.dart';
 import '../models/personal_details.dart';
-import '../models/treeNode.dart';
+import '../models/tree_node.dart';
 
 class OrganizationBuilder {
   TreeNode<Employee>? ceoNode;

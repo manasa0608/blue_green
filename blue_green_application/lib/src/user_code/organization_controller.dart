@@ -5,10 +5,10 @@ import 'dart:convert';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
-import '../models/employees.dart';
-import '../models/treeNode.dart';
-import '../service/organization_service.dart';
-import '../utils/organization_builder.dart';
+import 'employees.dart';
+import '../models/tree_node.dart';
+import 'organization_service.dart';
+import 'organization_builder.dart';
 
 class OrganizationController {
   final Router _router = Router();

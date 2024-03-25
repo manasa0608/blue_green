@@ -1,15 +1,15 @@
-import 'package:example/src/utils/database.dart';
+import 'package:blue_green_application/src/database/user_database.dart';
 
 class UserService {
   Future<String> addUser(String username, String email) async {
-    return Database.addUser(username, email);
+    return UserDatabase.addUser(username, email);
   }
 
   Future<List<Map<String, dynamic>>> getAllUsers() async {
-    return Database.getAllUsers();
+    return UserDatabase.getAllUsers();
   }
 
   Future<Map<String, dynamic>> getUserById(int id) async {
-    return Database.getUserDetails(id);
+    return UserDatabase.getUserDetails(id);
   }
 }

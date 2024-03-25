@@ -1,4 +1,5 @@
-import 'package:example/src/models/personal_details.dart';
+
+import '../models/personal_details.dart';
 
 class Employee {
   late List<int> teams;

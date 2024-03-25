@@ -1,11 +1,10 @@
 import 'dart:math';
 
 import 'package:annotations/annotation.dart';
-import 'package:example/src/models/component.dart';
-import 'package:example/src/models/treeNode.dart';
-import 'package:example/src/service_layer.dart';
-
+import '../models/component.dart';
 import '../models/personal_details.dart';
+import '../models/tree_node.dart';
+import '../repository/service_layer.dart';
 
 part 'component_service_blue.g.dart';
 

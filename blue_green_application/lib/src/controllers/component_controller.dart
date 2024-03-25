@@ -1,5 +1,6 @@
-import 'package:example/src/service/component_api_service.dart';
 import 'package:shelf_router/shelf_router.dart';
+
+import '../service/component_api_service.dart';
 
 class ComponentController {
   final ComponentApiService componentApiService;
